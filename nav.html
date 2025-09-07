@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Management</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .navbar .logo {
+      font-weight: bold;
+      font-size: 20px;
+      color: #333;
+    }
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar ul li {
+      margin: 0 10px;
+    }
+    .navbar ul li a {
+      text-decoration: none;
+      color: #333;
+    }
+    .phone {
+      background: #ff4b2b;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1494526585095-c41746248156') no-repeat center/cover;
+      height: 70vh;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 14px;
+    }
+
+    /* Properties */
+    .properties {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 30px 10px;
+      flex-wrap: wrap;
+    }
+    .property {
+      width: 280px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .property img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .property h3 {
+      margin: 10px 0;
+    }
+    .property p {
+      font-size: 14px;
+      color: #666;
+      padding: 0 10px 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">STRATEGIA</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Store</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Blank</a></li>
+    </ul>
+    <a href="tel:442010101010" class="phone">📞 44 20 1010 1010</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-content">
+      <h2>RESIDENTIAL & COMMERCIAL</h2>
+      <h1>Property Management</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+
+  <!-- Properties -->
+  <div class="properties">
+    <div class="property">
+      <img src="c:\Users\abith\OneDrive\Desktop\download.jpeg" alt="">
+      <h3>Residential Homes</h3>
+      <p>Comfortable homes in prime locations.</p>
+    </div>
+    <div class="property">
+      <img src="c:\Users\abith\OneDrive\Desktop\download (1).jpeg" alt="">
+      <h3>Modern Villas</h3>
+      <p>Luxury villas with modern designs.</p>
+    </div>
+    <div class="property">
+      <img src="c:\Users\abith\OneDrive\Desktop\download (2).jpeg" alt="">
+      <h3>Commercial Spaces</h3>
+      <p>Premium offices and retail spaces.</p>
+    </div>
+  </div>
+
+</body>
+</html>

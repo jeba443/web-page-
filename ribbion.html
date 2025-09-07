@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Button with Ribbon</title>
+  <style>
+    :root {
+      --btn-bg: #282A35;
+      --btn-fg: #fff;
+      --ribbon-bg: #ff9800;
+      --ribbon-fg: #fff;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      background: #0f1115;
+      color: #e6e7ea;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 20px;
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      font-size: clamp(14px, 2.2vw, 16px);
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .35), inset 0 0 0 1px rgba(255, 255, 255, .04);
+      transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid #87cefa;
+      outline-offset: 3px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(255, 255, 255, .06);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      filter: none;
+    }
+
+    /* Ribbon */
+    .ribbon {
+      --size: 64px;
+      position: absolute;
+      top: -14px;
+      right: -26px;
+      width: var(--size);
+      padding: 6px 0;
+      transform: rotate(30deg);
+      border-radius: 999px;
+      background: var(--ribbon-bg);
+      color: var(--ribbon-fg);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: 0 8px 18px rgba(255, 152, 0, .35);
+      pointer-events: none;
+    }
+
+    /* Optional: icon */
+    .spark {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <button class="btn">
+    <svg class="spark" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z" fill="currentColor"/>
+    </svg>
+    A button for something cool
+    <span class="ribbon">NEW</span>
+  </button>
+</body>
+</html>

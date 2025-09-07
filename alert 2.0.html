@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alert Box Example</title>
+  <style>
+    .alert {
+      padding: 20px;
+      background-color: #f44336; /* red */
+      color: white;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Alert Messages</h2>
+  <p>Click on the "×" symbol to close the alert message.</p>
+
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+  </div>
+
+  <div class="alert" style="background-color:#2196F3;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Info!</strong> This is an informational message.
+  </div>
+
+  <div class="alert" style="background-color:#4CAF50;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Success!</strong> Your action was successful.
+  </div>
+
+  <div class="alert" style="background-color:#ff9800;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Warning!</strong> This is a warning message.
+  </div>
+
+</body>
+</html>

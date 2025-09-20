@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Stylish Rounded Button</title>
+
+    <style>
+        /* Body styling to center button */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #744545b4;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Stylish button base style */
+        .rounded-button {
+            background-color: #00d9ff;
+            color: rgb(56, 171, 36);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Hover effect */
+        .rounded-button:hover {
+            background-color: #0bc52a;
+            transform: translateY(-2px);
+        }
+
+        /* Optional: Focus state for accessibility */
+        .rounded-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.813);
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="rounded-button">
+        Click Me
+    </button>
+
+</body>
+
+</html>

@@ -1,103 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Internship Website Layout</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dairy Home – Fresh Dairy Products</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== Global ===== */
+    html { scroll-behavior: smooth; }
     body {
-      background-color: #f8f9fa;
+      background: linear-gradient(180deg, #f9fcff 0%, #e9f3ff 100%);
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      overflow-x: hidden;
     }
-    .color-box {
-      color: white;
-      font-size: 1.2rem;
-      font-weight: 500;
-      padding: 30px 0;
+
+    /* ===== Enhanced Milk Loader ===== */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, #e6e0f8 0%, #d1c4f0 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    .milk-splash {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #d8bfff 40%, #c5a3f5 100%);
+      position: relative;
+      animation: splashBounce 2s ease-in-out infinite;
+      box-shadow: 0 0 30px rgba(181, 148, 245, 0.6);
+      z-index: 2;
+    }
+
+    /* Floating droplets */
+    .droplet {
+      position: absolute;
+      bottom: 0;
+      width: 12px;
+      height: 12px;
+      background: #d8bfff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: floatUp 2.5s infinite ease-in-out;
+    }
+    .droplet:nth-child(1) { left: -30px; animation-delay: 0s; animation-duration: 2.5s; }
+    .droplet:nth-child(2) { left: 40px; animation-delay: 0.4s; animation-duration: 2s; }
+    .droplet:nth-child(3) { left: -60px; animation-delay: 0.8s; animation-duration: 3s; }
+    .droplet:nth-child(4) { left: 60px; animation-delay: 1.2s; animation-duration: 2.8s; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      50% { transform: translateY(-60px) scale(1.3); opacity: 0.6; }
+      100% { transform: translateY(-120px) scale(1); opacity: 0; }
+    }
+
+    .milk-splash::before, .milk-splash::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: #d8bfff;
+      opacity: 0.8;
+      animation: dropBounce 2s infinite ease-in-out;
+    }
+    .milk-splash::before {
+      width: 30px; height: 30px;
+      top: -20px; left: 50%;
+      transform: translateX(-50%);
+    }
+    .milk-splash::after {
+      width: 20px; height: 20px;
+      bottom: -15px; left: 50%;
+      transform: translateX(-50%);
+      animation-delay: 1s;
+    }
+
+    @keyframes splashBounce {
+      0%,100% { transform: scale(1); box-shadow: 0 0 30px rgba(181,148,245,0.6); }
+      25% { transform: scale(1.1); box-shadow: 0 0 50px rgba(181,148,245,0.9); }
+      50% { transform: scale(0.95); box-shadow: 0 0 40px rgba(181,148,245,0.7); }
+      75% { transform: scale(1.05); box-shadow: 0 0 45px rgba(181,148,245,0.8); }
+    }
+
+    @keyframes dropBounce {
+      0%,100% { transform: translateY(0) scale(1); opacity: 0.8; }
+      50% { transform: translateY(15px) scale(1.2); opacity: 0.5; }
+    }
+
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      background: rgba(255, 255, 255, 0.9);
+      transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+    .navbar .nav-link,
+    .navbar .navbar-brand span { color: #004085 !important; font-weight: 600; }
+    .navbar .nav-link:hover { color: #007bff !important; }
+    .navbar.scrolled {
+      background: linear-gradient(90deg, #007bff, #4facfe);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .navbar.scrolled .nav-link,
+    .navbar.scrolled .navbar-brand span { color: #fff !important; }
+
+    /* ===== Carousel ===== */
+    #carouselExampleCaptions { height: 75vh; }
+    #carouselExampleCaptions .carousel-inner,
+    #carouselExampleCaptions .carousel-item img { height: 75vh; object-fit: cover; }
+    .carousel-caption {
+      animation: fadeInUp 1s ease both;
+      background: rgba(0,0,0,0.45);
       border-radius: 10px;
-      text-align: center;
-      margin-bottom: 20px;
+      padding: 15px;
     }
-    footer {
-      background-color: #212529;
+    @keyframes fadeInUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ===== Product Section ===== */
+    #products {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #f9fcff 0%, #e9f3ff 100%);
+      z-index: 1;
+    }
+    #products::before,
+    #products::after {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle at 50% 50%, rgba(0,123,255,0.15) 0%, transparent 60%);
+      animation: productWave 12s linear infinite;
+      opacity: 0.5;
+      z-index: 0;
+    }
+    #products::after {
+      animation-duration: 20s;
+      animation-direction: reverse;
+      background: radial-gradient(circle at 80% 30%, rgba(79,172,254,0.2) 0%, transparent 70%);
+    }
+    @keyframes productWave { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+
+    /* ===== Product Cards ===== */
+    .product-card {
+      border-radius: 12px;
+      overflow: hidden;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.6s ease, box-shadow 0.3s ease;
+      background: white;
+      position: relative;
+      z-index: 2;
+    }
+    .product-card.show { transform: translateY(0); opacity: 1; }
+    .product-img { width: 100%; height: 220px; object-fit: cover; }
+    .product-title {
+      background: linear-gradient(45deg, #6fb1fc, #4364f7);
       color: white;
       text-align: center;
-      padding: 20px 0;
-      margin-top: 30px;
+      font-weight: 600;
+      padding: 10px;
+      font-size: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-title::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255,255,255,0.3);
+      transform: skewX(-25deg);
+      transition: 0.5s;
+    }
+    .product-card:hover .product-title::after { left: 125%; }
+    .product-card:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+
+    /* ===== Info Box ===== */
+    .fixed-info-box {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.95);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1050;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
+
+    /* ===== Footer Wave Animation ===== */
+    .wave {
+      position: relative;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(to top, #007bff, #00c6ff);
+      overflow: hidden;
+      animation: waveUpDown 6s ease-in-out infinite;
+    }
+    .wave::before,
+    .wave::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      top: 0;
+      left: -50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 25%, transparent 26%);
+      background-size: 50px 50px;
+      opacity: 0.3;
+      animation: waveMove 8s linear infinite;
+    }
+    .wave::after { opacity: 0.2; animation-duration: 12s; animation-direction: reverse; }
+    @keyframes waveMove { 100% { transform: translateX(50%); } }
+    @keyframes waveUpDown { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+    footer {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 40px 0;
+      font-family: 'Poppins', sans-serif;
     }
   </style>
 </head>
 <body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="milk-splash"></div>
+    <div class="droplet"></div>
+    <div class="droplet"></div>
+    <div class="droplet"></div>
+    <div class="droplet"></div>
+    <h3 style="margin-top:20px;color:#5a4b8c;">Dairy Home Loading...</h3>
+  </div>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+      <a class="navbar-brand d-flex align-items-center" href="#home">
+        <img src="images/new-logo.png" width="40" height="40" class="me-2 rounded-circle" alt="">
+        <span class="fw-bold">Dairy Home</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
         </ul>
-
-        <!-- Search Form -->
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search Dairy" />
+          <button class="btn btn-primary">Search</button>
         </form>
       </div>
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <div class="container my-4">
-    <div class="row g-3 text-center">
-      <div class="col-4"><div class="color-box bg-success">1</div></div>
-      <div class="col-4"><div class="color-box bg-primary">2</div></div>
-      <div class="col-4"><div class="color-box bg-danger">3</div></div>
+  <!-- Carousel -->
+  <div id="home" style="padding-top: 56px;"></div>
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="images/flavourmilkdrinkbanner.png" class="d-block w-100" alt="Dairy Banner 1">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Fresh Dairy Products</h5>
+          <p>Quality milk and cheese delivered daily.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/milkflag.jpg" class="d-block w-100" alt="Milk Glass">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Natural Ingredients</h5>
+          <p>Discover our range of healthy yogurt and butter.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/Icecreambanner.jpg" class="d-block w-100" alt="Cheese Varieties">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Artisanal Cheese</h5>
+          <p>From cheddar to mozzarella, find your favorite.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
 
-      <div class="col-4"><div class="color-box bg-warning text-dark">4</div></div>
-      <div class="col-4"><div class="color-box bg-primary">5</div></div>
-      <div class="col-4"><div class="color-box bg-info text-dark">6</div></div>
+  <!-- Info Box -->
+  <div class="fixed-info-box" id="infoBox">
+    🚚 Free Delivery on Orders Over ₹500!
+    <button class="close-btn" onclick="document.getElementById('infoBox').style.display='none'">&times;</button>
+  </div>
 
-      <div class="col-6"><div class="color-box bg-secondary">7</div></div>
-      <div class="col-6"><div class="color-box bg-primary">8</div></div>
-
-      <div class="col-6"><div class="color-box bg-light text-dark border">9</div></div>
-      <div class="col-6"><div class="color-box bg-dark">10</div></div>
-
-      <div class="col-12"><div class="color-box bg-danger">11</div></div>
+  <!-- Product Section -->
+  <div id="products" class="container my-5">
+    <h2 class="text-center mb-4 fw-bold">Our Product Categories</h2>
+    <div class="row g-4">
+      <div class="col-md-4"><div class="product-card"><img src="images/milk.jpg" class="product-img"><div class="product-title">Milk</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/butter.jpg" class="product-img"><div class="product-title">Butter</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/panner.png" class="product-img"><div class="product-title">Paneer</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/thickshake.png" class="product-img"><div class="product-title">ThickShake</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/yogurt.png" class="product-img"><div class="product-title">Yogurt</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/icecream.png" class="product-img"><div class="product-title">Ice Cream</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/mysore.png" class="product-img"><div class="product-title">Mysore Pak</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/ghee.jpg" class="product-img"><div class="product-title">Ghee</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/dooth.png" class="product-img"><div class="product-title">Doodh Peda</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/Lazzi.png" class="product-img"><div class="product-title">Lassi</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/Butter Milk.png" class="product-img"><div class="product-title">Butter Milk</div></div></div>
+      <div class="col-md-4"><div class="product-card"><img src="images/badham.jpg" class="product-img"><div class="product-title">Badam Milk</div></div></div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <h5>This is Footer</h5>
-    <p>Copyright @2024</p>
+  <!-- 🌊 Footer -->
+  <div class="wave"></div>
+  <footer id="footer">
+    <p class="h5 fw-bold">Dairy Home</p>
+    <p>© 2025 Freshness Guaranteed – Made with ❤</p>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Loader hide after 3s
+    window.addEventListener("load", function() {
+      setTimeout(() => {
+        const loader = document.getElementById("loader");
+        loader.style.animation = "fadeOut 1s forwards";
+        setTimeout(() => loader.style.display = "none", 1000);
+      }, 3000);
+    });
+
+    // Navbar scroll color change
+    window.addEventListener("scroll", function() {
+      const nav = document.querySelector(".navbar");
+      nav.classList.toggle("scrolled", window.scrollY > 100);
+    });
+
+    // Scroll reveal for products
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('show'); } });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
+  </script>
 </body>
 </html>
